@@ -14,20 +14,11 @@
     <!-- Bootstrap Core CSS -->
     <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- MetisMenu CSS -->
-    <link href="../vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    
-    <!-- Fetch.JS --->
-    <script src="../js/fetch.js"></script>
     
     <!-- FA Icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -38,7 +29,7 @@
 
     <div id="wrapper">
 
-        <!-- Navigation -->
+        <!-- Navigation 
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -49,29 +40,24 @@
                 </button>
                 <a class="navbar-brand" href="index.html">Surf UCSB</a>
             </div>
-            <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                 </li>
-                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                 </li>
-                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
 
                 </li>
-                <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -79,7 +65,6 @@
 
                 </li>
             </ul>
-            <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -93,7 +78,6 @@
                                 </button>
                             </span>
                             </div>
-                            <!-- /input-group -->
                         </li>
                         <li>
                             <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
@@ -108,7 +92,6 @@
                                     <a href="morris.html">Morris.js Charts</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
@@ -138,7 +121,6 @@
                                     <a href="grid.html">Grid</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
@@ -165,10 +147,8 @@
                                             <a href="#">Third Level Item</a>
                                         </li>
                                     </ul>
-                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
@@ -180,15 +160,12 @@
                                     <a href="login.html">Login Page</a>
                                 </li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                     </ul>
                 </div>
-                <!-- /.sidebar-collapse -->
             </div>
-            <!-- /.navbar-static-side -->
         </nav>
-
+        -->
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -200,7 +177,7 @@
             
             <!-- Top Row of Displays -->
             <div class="row">
-                <!-- Wave Height Display -->
+                <!-- Campus Point Display -->
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
@@ -209,12 +186,12 @@
                                     <i class="fab fa-servicestack fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge" id="waveHeight"></div>
-                                    <div>Wave Height</div>
+                                    <div class="huge" id="Campus Point"></div>
+                                    <div>Campus Point</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="#" id="changecampus">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -223,21 +200,21 @@
                         </a>
                     </div>
                 </div>
-                <!-- Wind Speed Display -->
+                <!-- Devereaux Display -->
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-flag fa-5x"></i>
+                                    <i class="fab fa-servicestack fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge" id="windSpeed"></div>
-                                    <div>Wind Speed</div>
+                                    <div class="huge" id="Devereaux"></div>
+                                    <div>Devereaux</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="#" id="changedev">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -246,21 +223,21 @@
                         </a>
                     </div>
                 </div>
-                <!-- Water Temperature Display -->
+                <!-- Sands Display -->
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-thermometer fa-5x"></i>
+                                    <i class="fab fa-servicestack fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge" id="waterTemp"></div>
-                                    <div>Water Temperature</div>
+                                    <div class="huge" id="Sands"></div>
+                                    <div>Sands Beach</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="#" id="changesands">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -269,21 +246,21 @@
                         </a>
                     </div>
                 </div>
-                <!-- Outside Temperature Display -->
+                <!-- Rincon Display -->
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-thermometer-half fa-5x"></i>
+                                    <i class="fab fa-servicestack fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge" id="temperature">00</div>
-                                    <div>Temperature</div>
+                                    <div class="huge" id="rincon"></div>
+                                    <div>Rincon</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="#" id="changerincon">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -295,11 +272,47 @@
             </div>
             <!-- /.row -->
             
+            <!-- First Row Wave Height and Swell -->
             <div class="row">
-                <div class="col-lg-12">
+                <!-- Tide Chart -->
+                <div class="col-lg-8">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-bar-chart-o fa-fw"></i> Wave Height
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <canvas id="wavechart"></canvas>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Swell Map
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d18934.90312301806!2d-119.8638407407523!3d34.410326891739686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sus!4v1536259435423" width="300" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <!-- Second Row Tides and Wind -->
+            <div class="row">
+                <!-- Tide Chart -->
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Tide
                             <div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
@@ -322,13 +335,79 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <canvas id="wavechart"></canvas>
+                            <canvas id="tidechart"></canvas>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-4 -->
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-arrow-left fa-fw"></i> Wind Speed
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div id="windspeed">
+                              <div id="speed"></div>
+                              <hr>
+                              <div id="direction"></div>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            <!-- Third Row Temp Water Temp and Sunrise -->
+            <div class="row">
+                <!-- Tide Chart -->
+                <div class="col-lg-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-thermometer-half"></i> Temperature
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                          <div id="temperature"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-3">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-thermometer-half"></i> Water Temperature
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                          <div id="waterTemp"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+                <div class="col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-sun-o"></i> Sunrise & Sunset
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                          <div id="sunriseset"></div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
             </div>
             <!-- /.row -->
         </div>
@@ -342,20 +421,16 @@
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="../vendor/metisMenu/metisMenu.min.js"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <script src="../vendor/raphael/raphael.min.js"></script>
-    <script src="../vendor/morrisjs/morris.min.js"></script>
-    <script src="../data/morris-data.js"></script>
     
     <!-- Chats.js JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    
+    <!-- Fetch.JS --->
+    <script src="../js/fetch.js"></script>
+    
 
 </body>
 

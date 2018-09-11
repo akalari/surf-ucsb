@@ -1,126 +1,164 @@
-// Public API URLs
-var urlWaterTemp =
-    "http://api.spitcast.com/api/county/water-temperature/santa-barbara/";
-var urlWind =
-    "http://api.spitcast.com/api/county/wind/santa-barbara/";
-// Spot 179 is Campus Point @ UCSB
-var urlWaveHeight =
-    "http://api.spitcast.com/api/spot/forecast/179/";
-// Open Weather API data
-var urlWeather = 
-    "http://api.openweathermap.org/data/2.5/weather?lat=35&lon=-120&units=imperial&appid=135760273c771df61f0839c8082cd122";
+// County Data URLs from Spitcast and OpenWeather API
+var urlWaterTemp = "http://api.spitcast.com/api/county/water-temperature/santa-barbara/";
+var urlWind = "http://api.spitcast.com/api/county/wind/santa-barbara/";
+var urlSwell = "http://api.spitcast.com/api/county/swell/santa-barbara/";
+var urlTide = "http://api.spitcast.com/api/county/tide/santa-barbara/";
+var urlWeather = "http://api.openweathermap.org/data/2.5/weather?lat=35&lon=-120&units=imperial&appid=135760273c771df61f0839c8082cd122";
+// Spot Specific Data - Needs spot ID to function
+var urlWaveHeight = "http://api.spitcast.com/api/spot/forecast/179/";
+    
+// Array of Spot Names and IDs
+var spotnames = ["Campus Point", "Devereaux", "Sands", "Rincon"];
+var spotid = [179, 181, 182, 198];
+var spotnum = [4, 3, 2, 6];
 
 function waterTempCallback(response) {
-    // Parses JSON for Temperature
-    var temperature = parseInt(JSON.parse(response).fahrenheit);
-    var tempHtml =
-        '<div class="huge">' + temperature + '<sup>&deg;</sup></div>';
-    document.getElementById('waterTemp').innerHTML = tempHtml;
-    return;
+  // Parses JSON for Temperature
+  var temperature = parseInt(JSON.parse(response).fahrenheit);
+  var waterTempHtml = '<div>' + Math.round(temperature) + '&deg;</div>';
+  document.getElementById('waterTemp').innerHTML = waterTempHtml;
 }
-
-function weatherCallback(response) {
-  // Parses JSON for Wind Speed
-  var windspeed = Math.round(JSON.parse(response).wind.speed);
-  var windHtml = 
-      '<div class="huge">' + windspeed + '</div>';
-  document.getElementById('windSpeed').innerHTML = windHtml;
+function windCallback(response) {
+  // Parses JSON for Temperature
+  var jsonResponse = JSON.parse(response);
   
+  var time = new Date();
+  var hours = time.getHours();
+  
+  var windspeed = jsonResponse[hours].speed_kts;
+  var winddirection = jsonResponse[hours].direction_text;
+
+  var windspeedHtml = '<div>' + Math.round(windspeed) + '</div>';
+  var winddirectionHtml = '<div>' + winddirection + '</div>';
+  document.getElementById('speed').innerHTML = windspeedHtml;
+  document.getElementById('direction').innerHTML = winddirectionHtml;
+}
+function tideCallback(response) {
+  var jsonResponse = JSON.parse(response);
+  var tideObj = { // JSON object for Chart.js
+    "xLabels": [],
+    "yValues": []
+  }
+  for (var i = 0; i < jsonResponse.length - 1; i++) { 
+      tideObj.xLabels.push(jsonResponse[i].hour);
+      tideObj.yValues.push(parseFloat(jsonResponse[i].tide.toFixed(2))+1);
+  }
+  var ctxTide = document.getElementById("tidechart");
+  var tidechart = new Chart(ctxTide, {
+      type: 'bar',
+      responsive: true,
+      data: {
+        labels: tideObj.xLabels,
+        datasets: [{
+          label: 'Tide',
+          data: tideObj.yValues,
+          backgroundColor: 'rgba(154, 158, 161, 0.89)',
+          borderColor: 'rgba(216, 219, 222, 0.89)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true,
+              display: false,
+              min: 0
+            },
+            gridLines: {
+              display: false
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            }
+          }]
+        }
+      }
+  });
+}
+function weatherCallback(response) {
   // Parses JSON for temperature
   var temp = Math.round(JSON.parse(response).main.temp);
-  var tempHtml = 
-      '<div class="huge">' + temp + '<sup>&deg;</sup></div>';
+  var tempHtml = '<div>' + Math.round(temp) + '&deg</div>';
   document.getElementById('temperature').innerHTML = tempHtml;
-}
+  
+  // Parses for Sunset and Sunrise
+  var sunrise = JSON.parse(response).sys.sunrise;
+  var sunset = JSON. parse(response).sys.sunset;
+  
+  var ampm = function (hours) {
+    suffix = (hours >= 12)? ' PM' : ' AM';
+    hours = (hours > 12)? hours -12 : hours;
+    hours = (hours == '00')? 12 : hours;
+    return hours+suffix;
+  }
+  
+  sunrise = ampm((new Date(sunrise*1000)).getHours());
+  sunset = ampm((new Date(sunset*1000)).getHours());
 
-function windCallback(response) {
-    var jsonResponse = JSON.parse(response);
-    document.getElementById('date').innerHTML = jsonResponse[0].date;
-    var windObj = { // JSON object to be used by Chart.js
-        "xLabels": [],
-        "yValues": []
-    }
-    for (var i = 0; i < jsonResponse.length - 1; i++) {
-        // length-1 because the data includes 12AM for the following day
-        windObj.xLabels.push(jsonResponse[i].hour);
-        windObj.yValues.push(
-            parseFloat(jsonResponse[i].speed_mph.toFixed(2)));
-    }
-    var windchart = new Chart(ctxWind, {
-        type: 'bar',
-        responsive: true,
-        data: {
-            labels: windObj.xLabels,
-            datasets: [{
-                label: 'Wind Speed',
-                data: windObj.yValues,
-                backgroundColor: 'rgba(154, 158, 161, 0.89)',
-                borderColor: 'rgba(216, 219, 222, 0.89)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
+  var riseHtml = '<div>' + sunrise + '\t / ' + sunset + '</div>';
+  document.getElementById('sunriseset').innerHTML = riseHtml;  
 }
-
+function swellCallback(response) {
+  var jsonResponse = JSON.parse(response);
+  var time = new Date();
+  var hours = time.getHours();
+  var swell = jsonResponse[hours];
+  for (var index = 0; index < spotnum.length; index++)
+    swellsize.push(swell[spotnum[index]]);
+}
 function waveHeightCallback(response) {
-    var jsonResponse = JSON.parse(response);
+  var jsonResponse = JSON.parse(response);
     
-    var time = new Date();
-    var hours = time.getHours();
-    // var suffix = hours >= 12 ? "PM":"AM"; 
-    // var hours = ((hours + 11) % 12 + 1) + suffix;
-    var waveheight = jsonResponse[hours].size_ft;
-    var waveHtml = 
-        '<div class="huge">' + Math.floor(waveheight) + ' - ' + Math.ceil(waveheight) + '</div>';
-    document.getElementById('waveHeight').innerHTML = waveHtml;
-    
-
-    var waveObj = {
-        "date": jsonResponse[0].date,
-        "xLabels": [],
-        "yValues": []
-    };
-    for (var i = 0; i < jsonResponse.length - 1; i++) {
-        waveObj.xLabels.push(jsonResponse[i].hour);
-        waveObj.yValues.push(parseFloat(jsonResponse[i].size_ft.toFixed(2)));
-    }
-    var ctxWave = document.getElementById("wavechart");
-    var wavechart = new Chart(ctxWave, {
-        type: 'bar',
-        data: {
-            labels: waveObj.xLabels,
-            datasets: [{
-                label: 'Wave Height',
-                data: waveObj.yValues,
-                backgroundColor: 'rgba(21, 44, 66, 0.89)',
-                borderColor: 'rgba(216, 219, 222, 0.89)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true,
-                        max: 10,
-                        min: 0
-                    }
-                }]
-            }
-        }
-    });
-    return wavechart;
+  var time = new Date();
+  var hours = time.getHours();
+  var waveheight = jsonResponse[hours].size_ft;
+  
+  var waveObj = {
+      "date": jsonResponse[0].date,
+      "xLabels": [],
+      "yValues": []
+  };
+  for (var i = 0; i < jsonResponse.length - 1; i++) {
+      waveObj.xLabels.push(jsonResponse[i].hour);
+      waveObj.yValues.push(parseFloat(jsonResponse[i].size_ft.toFixed(2)));
+  }
+  var ctxWave = document.getElementById("wavechart");
+  var wavechart = new Chart(ctxWave, {
+      type: 'bar',
+      data: {
+          labels: waveObj.xLabels,
+          datasets: [{
+              label: 'Wave Height',
+              data: waveObj.yValues,
+              backgroundColor: 'rgba(21, 44, 66, 0.89)',
+              borderColor: 'rgba(216, 219, 222, 0.89)',
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true,
+                      max: 10,
+                      min: 0
+                  }
+              }]
+          }
+      }
+  });
 }
 
+/**
+ * Pulls JSON file from the specified URL
+ * Passes url into the specified callback function
+ *
+ * @param url The data source
+ * @param callback The callback/data handler function
+ */
 function getAsync(url, callback) {
     var xmlHttpReq = new XMLHttpRequest();
     xmlHttpReq.open("GET", url, true);
@@ -132,8 +170,33 @@ function getAsync(url, callback) {
     xmlHttpReq.send(null);
 }
 
-// Send requests for Conditions
+// Send Requests for Countywide Conditions
 getAsync(urlWaterTemp, waterTempCallback);
 getAsync(urlWind, windCallback);
-getAsync(urlWaveHeight, waveHeightCallback);
+getAsync(urlSwell, swellCallback);
+getAsync(urlTide, tideCallback);
 getAsync(urlWeather, weatherCallback);
+// Send Request for Spot Specific Conditions
+getAsync(urlWaveHeight, waveHeightCallback);
+
+// Listeners re-render wave height chart when changing break
+document.getElementById("changecampus").addEventListener('click', function () {
+  urlWaveHeight = urlWaveHeight.slice(0, -4);
+  urlWaveHeight = urlWaveHeight + spotid[0] + '/';
+  getAsync(urlWaveHeight, waveHeightCallback);
+}); 
+document.getElementById("changedev").addEventListener('click', function () {
+  urlWaveHeight = urlWaveHeight.slice(0, -4);
+  urlWaveHeight = urlWaveHeight + spotid[1] + '/';
+  getAsync(urlWaveHeight, waveHeightCallback);
+}); 
+document.getElementById("changesands").addEventListener('click', function () {
+  urlWaveHeight = urlWaveHeight.slice(0, -4);
+  urlWaveHeight = urlWaveHeight + spotid[2] + '/';
+  getAsync(urlWaveHeight, waveHeightCallback);
+}); 
+document.getElementById("changerincon").addEventListener('click', function () {
+  urlWaveHeight = urlWaveHeight.slice(0, -4);
+  urlWaveHeight = urlWaveHeight + spotid[3] + '/';
+  getAsync(urlWaveHeight, waveHeightCallback);
+}); 
